@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="/static/style.css"><title>Submit Ticket</title></head>
+<body>
+<nav class="topbar"><div class="topbar-inner"><span class="logo">🎫 IT Helpdesk</span><a href="/" class="btn btn-secondary">← Dashboard</a></div></nav>
+<div class="container"><div class="form-card"><h2>Submit a New Ticket</h2>
+<form action="/submit" method="post">
+<div class="form-group"><label>Title</label><input type="text" name="title" placeholder="Brief summary" required></div>
+<div class="form-group"><label>Description</label><textarea name="description" rows="4" placeholder="Describe the issue..." required></textarea></div>
+<div class="form-row">
+<div class="form-group half"><label>Priority</label><select name="priority"><option value="Low">Low</option><option value="Medium" selected>Medium</option><option value="High">High</option></select></div>
+<div class="form-group half"><label>Category</label><select name="category"><option>Account Access</option><option>Software</option><option>Hardware</option><option>Network</option><option>Other</option></select></div>
+</div>
+<button type="submit" class="btn btn-primary btn-full">Submit Ticket</button>
+</form></div></div></body></html>

@@ -1,0 +1,1 @@
+Using the developer shell tool, create an IT helpdesk ticket tracker Flask app in the current directory. Create these files: app.py, init_db.py, templates/index.html, templates/submit.html, static/style.css. Include priority, category, status filters, 5 sample tickets, and clean modern styling. After creating all files, run 'python app.py' to start the server.

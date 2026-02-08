@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="/static/style.css"><title>Ticket #{{ ticket.id }}</title></head>
+<body>
+<nav class="topbar"><div class="topbar-inner"><span class="logo">🎫 IT Helpdesk</span><a href="/" class="btn btn-secondary">← Dashboard</a></div></nav>
+<div class="container"><div class="form-card">
+<h2>Ticket #{{ ticket.id }}: {{ ticket.title }}</h2>
+<p style="margin:12px 0"><strong>Status:</strong> {{ ticket.status }}</p>
+<p style="margin:12px 0"><strong>Priority:</strong> <span class="priority priority-{{ ticket.priority|lower }}">{{ ticket.priority }}</span></p>
+<p style="margin:12px 0"><strong>Category:</strong> <span class="category-tag">{{ ticket.category }}</span></p>
+<p style="margin:12px 0"><strong>Created:</strong> {{ ticket.created_at|time_ago }}</p>
+<hr style="margin:20px 0;border:none;border-top:1px solid #eee">
+<p>{{ ticket.description }}</p>
+</div></div></body></html>

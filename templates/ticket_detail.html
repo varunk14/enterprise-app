@@ -1,0 +1,11 @@
+<header>
+    <h1>Ticket Detail</h1>
+    <a href="/">Back to Dashboard</a>
+</header>
+<main>
+    <h2>{{ ticket.title }}</h2>
+    <p><strong>Category:</strong> {{ ticket.category }}</p>
+    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+    <p><strong>Status:</strong> {{ ticket.status }}</p>
+    <p><strong>Created At:</strong> {{ time_ago(ticket.created_at) }}</p>
+</main>

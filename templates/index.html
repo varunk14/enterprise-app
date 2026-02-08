@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="/static/style.css"><title>IT Helpdesk</title></head>
+<body>
+<nav class="topbar"><div class="topbar-inner"><span class="logo">🎫 IT Helpdesk</span><a href="/submit" class="btn btn-primary">+ New Ticket</a></div></nav>
+<div class="container">
+<div class="stats-row">
+<div class="stat-card"><div class="stat-number">{{ counts['Total'] }}</div><div class="stat-label">Total</div></div>
+<div class="stat-card stat-open"><div class="stat-number">{{ counts['Open'] }}</div><div class="stat-label">Open</div></div>
+<div class="stat-card stat-progress"><div class="stat-number">{{ counts['In Progress'] }}</div><div class="stat-label">In Progress</div></div>
+<div class="stat-card stat-resolved"><div class="stat-number">{{ counts['Resolved'] }}</div><div class="stat-label">Resolved</div></div>
+</div>
+<form class="search-bar" method="get" action="/"><input type="text" name="search" placeholder="Search tickets..." value="{{ search }}"><button type="submit" class="btn btn-primary">Search</button></form>
+<div class="filters"><span class="filter-label">Filter:</span>
+<a href="/?status=all" class="filter-btn {% if current_filter=='all' %}active{% endif %}">All</a>
+<a href="/?status=Open" class="filter-btn {% if current_filter=='Open' %}active{% endif %}">Open</a>
+<a href="/?status=In Progress" class="filter-btn {% if current_filter=='In Progress' %}active{% endif %}">In Progress</a>
+<a href="/?status=Resolved" class="filter-btn {% if current_filter=='Resolved' %}active{% endif %}">Resolved</a>
+</div>
+{% if tickets %}
+<table><thead><tr>
+<th><a href="/?sort=id">#</a></th>
+<th><a href="/?sort=title">Title</a></th>
+<th><a href="/?sort=category">Category</a></th>
+<th><a href="/?sort=priority">Priority</a></th>
+<th><a href="/?sort=status">Status</a></th>
+<th><a href="/?sort=created_at">Created</a></th>
+<th></th>
+</tr></thead>
+<tbody>{% for t in tickets %}<tr>
+<td class="muted">{{ t.id }}</td>
+<td><a href="/ticket/{{ t.id }}"><strong>{{ t.title }}</strong></a><div class="desc-preview">{{ t.description[:80] }}</div></td>
+<td><span class="category-tag">{{ t.category }}</span></td>
+<td><span class="priority priority-{{ t.priority|lower }}">{{ t.priority }}</span></td>
+<td><form action="/update/{{ t.id }}" method="post" class="status-form"><select name="status" onchange="this.form.submit()" class="status-select">
+<option value="Open" {% if t.status=='Open' %}selected{% endif %}>Open</option>
+<option value="In Progress" {% if t.status=='In Progress' %}selected{% endif %}>In Progress</option>
+<option value="Resolved" {% if t.status=='Resolved' %}selected{% endif %}>Resolved</option>
+</select></form></td>
+<td class="muted">{{ t.created_at|time_ago }}</td>
+<td><a href="/delete/{{ t.id }}" class="delete-link" onclick="return confirm('Delete?')">✕</a></td>
+</tr>{% endfor %}</tbody></table>
+{% else %}<div class="empty-state">No tickets found.</div>{% endif %}
+</div></body></html>
