@@ -18,7 +18,9 @@
 <a href="/?status=In Progress" class="filter-btn {% if current_filter=='In Progress' %}active{% endif %}">In Progress</a>
 <a href="/?status=Resolved" class="filter-btn {% if current_filter=='Resolved' %}active{% endif %}">Resolved</a>
 </div>
+
 {% if tickets %}
+<!-- Desktop table -->
 <table><thead><tr>
 <th><a href="/?sort=id">#</a></th>
 <th><a href="/?sort=title">Title</a></th>
@@ -41,5 +43,31 @@
 <td class="muted">{{ t.created_at|time_ago }}</td>
 <td><a href="/delete/{{ t.id }}" class="delete-link" onclick="return confirm('Delete?')">✕</a></td>
 </tr>{% endfor %}</tbody></table>
+
+<!-- Mobile cards -->
+<div class="mobile-cards">
+{% for t in tickets %}
+<div class="ticket-card">
+  <div class="ticket-card-header">
+    <a href="/ticket/{{ t.id }}" class="ticket-card-title">{{ t.title }}</a>
+    <a href="/delete/{{ t.id }}" class="delete-link" onclick="return confirm('Delete?')">✕</a>
+  </div>
+  <div class="ticket-card-desc">{{ t.description[:100] }}{% if t.description|length > 100 %}…{% endif %}</div>
+  <div class="ticket-card-meta">
+    <span class="priority priority-{{ t.priority|lower }}">{{ t.priority }}</span>
+    <span class="category-tag">{{ t.category }}</span>
+  </div>
+  <div class="ticket-card-footer">
+    <form action="/update/{{ t.id }}" method="post" class="status-form"><select name="status" onchange="this.form.submit()" class="status-select">
+    <option value="Open" {% if t.status=='Open' %}selected{% endif %}>Open</option>
+    <option value="In Progress" {% if t.status=='In Progress' %}selected{% endif %}>In Progress</option>
+    <option value="Resolved" {% if t.status=='Resolved' %}selected{% endif %}>Resolved</option>
+    </select></form>
+    <span class="ticket-card-time">{{ t.created_at|time_ago }}</span>
+  </div>
+</div>
+{% endfor %}
+</div>
+
 {% else %}<div class="empty-state">No tickets found.</div>{% endif %}
 </div></body></html>
